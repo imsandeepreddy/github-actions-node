@@ -21,3 +21,15 @@ jobs:
       
       - name: Build application
         run: npm start
+  cache:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Cache npm modules
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-npm-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-npm-
