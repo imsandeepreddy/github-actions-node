@@ -40,3 +40,21 @@ jobs:
           tags: |
             ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.IMAGE_NAME }}:${{ steps.meta.outputs.tag }}
             ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.IMAGE_NAME }}:latest
+  test:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Run container
+        run: |
+          docker run -d -p 3000:3000 \
+            --name test-app \
+            ${{ secrets.DOCKERHUB_USERNAME }}/node-hello:${{ needs.build.outputs.image-tag }}
+
+      - name: Smoke test
+        run: |
+          sleep 3
+          curl -f http://localhost:3000
+
+      - name: Cleanup
+        run: docker rm -f test-app
