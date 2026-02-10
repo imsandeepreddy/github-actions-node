@@ -16,5 +16,8 @@ COPY index.js .
 # 6. Expose app port
 EXPOSE 3000
 
+HEALTHCHECK --interval=5s --timeout=2s --retries=5 \
+  CMD wget -qO- http://localhost:3000 || exit 1
+
 # 7. Start application
 CMD ["node", "index.js"]
