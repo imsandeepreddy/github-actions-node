@@ -4,7 +4,7 @@ on: [push, pull_request]
 
 jobs:
   ci:
-    uses: imsandeepreddy/workflows-templates/.github/workflows/docker-ci.yaml@main
+    uses: imsandeepreddy/workflows-template/.github/workflows/docker-ci.yaml@main
     secrets: inherit
     with:
       IMAGE_NAME: "node-hello"
