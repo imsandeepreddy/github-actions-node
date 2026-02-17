@@ -2,7 +2,7 @@ name: Docker CI Pipeline
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "master1" ]
   pull_request:
 
 env:
@@ -58,4 +58,5 @@ jobs:
   
       - name: Cleanup
         run: docker rm -f test-app
+
 
